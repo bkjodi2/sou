@@ -1,0 +1,22 @@
+image: 'probo/ubuntu:latest'
+
+environment:
+  PYTHON_VERSION: '3.8'
+  PROBO_TOKEN: 'f3d94743-85f7-4aee-a349-bef1dddbf4e9'  # Your Probo token
+
+steps:
+  - name: Install Python and dependencies
+    command: |
+      sudo apt-get update
+      sudo apt-get install -y python3 python3-pip gcc
+      pip3 install telebot pymongo aiohttp
+      
+  - name: Compile C file
+    command: |
+      gcc soul.c -o soul -lpthread
+
+  - name: Run Python script
+    command: |
+      echo "Using Probo token: $PROBO_TOKEN"  # For demonstration purposes
+      python3 soul.py
+      
